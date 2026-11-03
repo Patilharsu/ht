@@ -1,0 +1,115 @@
+ 
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AMZ Store | User Details</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<nav class="navbar">
+    <h1>AMZ<span>STORE</span></h1>
+    <a href="index.html" class="nav-link">Logout</a>
+</nav>
+
+<div class="table-container">
+
+    <div class="table-heading">
+        <span class="tag">USER DASHBOARD</span>
+        <h2>Registration Details</h2>
+        <p>Welcome to your AMZ Store account.</p>
+    </div>
+
+    <div class="user-card">
+        <div class="icon-circle">👤</div>
+        <div>
+            <h3 id="displayName">User Details</h3>
+            <p>Registered AMZ Store Member</p>
+        </div>
+    </div>
+
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Field</th>
+                    <th>User Information</th>
+                </tr>
+            </thead>
+
+            <tbody id="userDetails">
+                <tr>
+                    <td colspan="2">Loading user details...</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="table-actions">
+        <a href="form.html" class="secondary-btn">
+            Register Another User
+        </a>
+        <a href="index.html" class="primary-btn">
+            Back to Login
+        </a>
+    </div>
+
+</div>
+
+<footer>© 2026 AMZ STORE | All Rights Reserved</footer>
+
+<script>
+
+const user = JSON.parse(localStorage.getItem("amzUser"));
+
+const details = document.getElementById("userDetails");
+
+if (user) {
+
+    document.getElementById("displayName").textContent =
+        user.fullname;
+
+    const fields = [
+        ["Full Name", user.fullname],
+        ["Age", user.age],
+        ["Contact", user.phoneno],
+        ["Email", user.email],
+        ["Gender", user.gender],
+        ["City", user.city],
+        ["Username", user.username]
+    ];
+
+    details.innerHTML = "";
+
+    fields.forEach(function(item) {
+
+        const row = document.createElement("tr");
+
+        const heading = document.createElement("td");
+        heading.textContent = item[0];
+
+        const value = document.createElement("td");
+        value.textContent = item[1];
+
+        row.appendChild(heading);
+        row.appendChild(value);
+
+        details.appendChild(row);
+
+    });
+
+} else {
+
+    details.innerHTML =
+    '<tr><td colspan="2">No registration details found. Please register first.</td></tr>';
+
+    document.getElementById("displayName").textContent =
+        "No User Registered";
+
+}
+
+</script>
+
+</body>
+</html>
